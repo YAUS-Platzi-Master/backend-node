@@ -31,6 +31,7 @@
     "helmet": "^4.1.0"
   },
   "devDependencies": {
+    "husky": "^4.2.5",
     "jest": "^26.4.2",
     "nodemon": "^2.0.4",
     "standard": "^14.3.4"
