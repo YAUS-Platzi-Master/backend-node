@@ -1,0 +1,43 @@
+{
+  "name": "backend-node",
+  "version": "1.0.0",
+  "description": "Yet another URL shortener",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "NODE_ENV=production node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test": "jest",
+    "lint": "standard",
+    "lint:fix": "standard --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YAUS-Platzi-Master/backend-node.git"
+  },
+  "keywords": [
+    "url",
+    "shortner",
+    "yaus"
+  ],
+  "author": "Gilberto Posso <gilberto.posso@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/YAUS-Platzi-Master/backend-node/issues"
+  },
+  "homepage": "https://github.com/YAUS-Platzi-Master/backend-node#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "helmet": "^4.1.0"
+  },
+  "devDependencies": {
+    "jest": "^26.4.2",
+    "nodemon": "^2.0.4",
+    "standard": "^14.3.4"
+  },
+  "standard": {
+    "env": [
+      "jest"
+    ]
+  }
+}
