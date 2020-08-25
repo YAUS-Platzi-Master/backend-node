@@ -1,6 +1,7 @@
 const { Pool } = require('pg')
 const { config } = require('../config')
 const geoip = require('geoip-lite')
+const publicIp = require('public-ip')
 
 const db = new Pool({
   connectionString: config.databaseUrl,
@@ -19,10 +20,10 @@ async function validateShortUrl (shortUrl) {
 }
 
 async function saveHits (id, req) {
-  const remoteIp = req.ip
+  const remoteIp = await publicIp.v4()
   const geo = await geoip.lookup(remoteIp)
 
-  const httpReferer = req.header('Referer') || ''
+  const httpReferer = req.get('Referrer') || ''
   const countryCode = geo === null ? '' : geo.country
   const regionCode = geo === null ? '' : geo.region
   const city = geo === null ? '' : geo.city
