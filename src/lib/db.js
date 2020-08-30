@@ -1,6 +1,7 @@
 const { Pool } = require('pg')
 const { config } = require('../config')
 const geoip = require('geoip-lite')
+const referer = require('../utils/referer')
 
 const db = new Pool({
   connectionString: config.databaseUrl,
@@ -22,7 +23,7 @@ async function saveHits (id, req) {
   const remoteIp = req.header('X-Forwarded-For') || req.connection.remoteAddress
   const geo = await geoip.lookup(remoteIp)
 
-  const httpReferer = req.get('Referrer') || ''
+  const httpReferer = await referer(req.get('Referrer') || '')
   const countryCode = geo === null ? '' : geo.country
   const regionCode = geo === null ? '' : geo.region
   const city = geo === null ? '' : geo.city
