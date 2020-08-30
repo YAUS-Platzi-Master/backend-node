@@ -11,7 +11,7 @@ app.use(express.json())
 app.use(helmet())
 
 // main route
-app.get(/^\/[a-z]+$/i, async function (req, res) {
+app.get(/^\/[a-z0-9-]+$/i, async function (req, res) {
   const shortUrl = await req.url.slice(1)
   const longUrl = await validateShortUrl(shortUrl)
 

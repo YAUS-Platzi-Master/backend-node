@@ -1,7 +1,6 @@
 const { Pool } = require('pg')
 const { config } = require('../config')
 const geoip = require('geoip-lite')
-const publicIp = require('public-ip')
 
 const db = new Pool({
   connectionString: config.databaseUrl,
@@ -20,7 +19,7 @@ async function validateShortUrl (shortUrl) {
 }
 
 async function saveHits (id, req) {
-  const remoteIp = await publicIp.v4()
+  const remoteIp = req.header('X-Forwarded-For') || req.connection.remoteAddress
   const geo = await geoip.lookup(remoteIp)
 
   const httpReferer = req.get('Referrer') || ''
@@ -34,7 +33,7 @@ async function saveHits (id, req) {
 
   await db.query(
     `INSERT INTO api_hit
-      (http_reffer, ip, country_code, region_code, city, lattitude, longitude, agent_client, created, set_url_id_id)
+      (http_reffer, ip, country_code, region_code, city, latitude, longitude, agent_client, created, set_url_id_id)
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10 )`,
     [
       httpReferer,
