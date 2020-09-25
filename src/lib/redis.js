@@ -17,6 +17,8 @@ function isCached (shortUrl) {
 
 async function saveCache (key, data) {
   try {
+    // TODO:
+    // In this part the `await` is unnecessary
     await client.setnx(key, data)
     return true
   } catch (err) {
